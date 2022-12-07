@@ -1,6 +1,8 @@
 package com.example.Shoppingcart_backend.Controller;
 
+import com.example.Shoppingcart_backend.Model.Registration;
 import com.example.Shoppingcart_backend.Model.Shoppingcart;
+import com.example.Shoppingcart_backend.dao.RegistrationDao;
 import com.example.Shoppingcart_backend.dao.ShoppingcartDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,4 +32,18 @@ public class ShoppingcartController {
     public String Serachpage(){
         return "Welcome to search page";
     }
+
+
+
+    @Autowired
+    private RegistrationDao daos;
+    @PostMapping(path="/register",consumes = "application/json",produces = "application/json")
+    public String RegisterUser(@RequestBody Registration r){
+        System.out.println(r.getName().toString());
+        daos.save(r);
+        return "Welcome to register page";
+    }
+
+
+
 }
