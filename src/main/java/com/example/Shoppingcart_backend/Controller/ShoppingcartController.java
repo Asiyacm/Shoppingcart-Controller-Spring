@@ -1,14 +1,17 @@
 package com.example.Shoppingcart_backend.Controller;
 
+import com.example.Shoppingcart_backend.Model.Shoppingcart;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ShoppingcartController {
 
-    @PostMapping("/add")
-    public String Addpage(){
+    @PostMapping(path="/add",consumes = "application/json",produces = "application/json")
+    public String Addpage(@RequestBody Shoppingcart s){
+        System.out.println(s.getName().toString());
         return "Welcome to add page";
     }
 
