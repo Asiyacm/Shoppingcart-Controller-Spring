@@ -7,9 +7,12 @@ import com.example.Shoppingcart_backend.dao.ShoppingcartDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
+
 public class ShoppingcartController {
 
     @Autowired
@@ -17,10 +20,12 @@ public class ShoppingcartController {
 
     @CrossOrigin(origins = "*")
     @PostMapping(path="/add",consumes = "application/json",produces = "application/json")
-    public String Addpage(@RequestBody Shoppingcart s){
+    public Map<String,String> Addpage(@RequestBody Shoppingcart s){
         System.out.println(s.getName().toString());
         dao.save(s);
-        return "Welcome to add page";
+        HashMap<String,String> map= new HashMap<>();
+        map.put("status","success");
+        return map;
     }
     @CrossOrigin(origins = "*")
     @GetMapping("/view")
@@ -28,21 +33,14 @@ public class ShoppingcartController {
         return (List<Shoppingcart>) dao.findAll();
     }
     @CrossOrigin(origins = "*")
-    @PostMapping("/search")
-    public String Serachpage(){
-        return "Welcome to search page";
+    @PostMapping(path="/search",consumes = "application/json",produces = "application/json")
+    public List<Shoppingcart> Serachpage(@RequestBody Shoppingcart s){
+        String name = s.getName();
+        System.out.println(name);
+        return (List<Shoppingcart>) dao.Searchproduct(s.getName());
     }
 
 
-
-    @Autowired
-    private RegistrationDao daos;
-    @PostMapping(path="/register",consumes = "application/json",produces = "application/json")
-    public String RegisterUser(@RequestBody Registration r){
-        System.out.println(r.getName().toString());
-        daos.save(r);
-        return "Welcome to register page";
-    }
 
 
 
